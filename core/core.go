@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
-	"github.com/Mikaelemmmm/sql2pb/tools/stringx"
 	"log"
 	"regexp"
 	"sort"
 	"strings"
+
+	"github.com/Mikaelemmmm/sql2pb/tools/stringx"
 
 	"github.com/chuckpreslar/inflect"
 	"github.com/serenize/snaker"
@@ -635,7 +636,7 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 	var fieldType string
 
 	switch typ {
-	case "char", "varchar", "text", "longtext", "mediumtext", "tinytext":
+	case "char", "varchar", "text", "longtext", "mediumtext", "tinytext","datetime":
 		fieldType = "string"
 	case "enum", "set":
 		// Parse c.ColumnType to get the enum list
@@ -656,7 +657,7 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 		fieldType = enumName
 	case "blob", "mediumblob", "longblob", "varbinary", "binary":
 		fieldType = "bytes"
-	case "date", "time", "datetime", "timestamp":
+	case "date", "time", "timestamp":
 		//s.AppendImport("google/protobuf/timestamp.proto")
 		fieldType = "int64"
 	case  "bool":

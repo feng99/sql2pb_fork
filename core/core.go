@@ -260,7 +260,8 @@ func (s *Schema) String() string {
 		funcTpl += "\t rpc Update" + m.Name + "(Update" + m.Name + "Req) returns (Update" + m.Name + "Resp); \n"
 		funcTpl += "\t rpc Del" + m.Name + "(Del" + m.Name + "Req) returns (Del" + m.Name + "Resp); \n"
 		funcTpl += "\t rpc Get" + m.Name + "ById(Get" + m.Name + "ByIdReq) returns (Get" + m.Name + "ByIdResp); \n"
-		funcTpl += "\t rpc Search" + m.Name + "(Search" + m.Name + "Req) returns (Search" + m.Name + "Resp); \n"
+		//funcTpl += "\t rpc Search" + m.Name + "(Search" + m.Name + "Req) returns (Search" + m.Name + "Resp); \n"
+		funcTpl += "\t rpc Get" + m.Name + "List(Get" + m.Name + "ListReq) returns (Get" + m.Name + "ListResp); \n"
 	}
 	funcTpl = funcTpl + "\n}"
 	buf.WriteString(funcTpl)
@@ -523,7 +524,8 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 	mOrginName := m.Name
 	mOrginFields := m.Fields
 
-	m.Name = "Search" + mOrginName + "Req"
+	//m.Name = "Search" + mOrginName + "Req"
+	m.Name = "Get" + mOrginName + "ListReq"
 	curFields := []MessageField{
 		{Typ: "int64",Name: "page",tag: 1,Comment: "page"},
 		{Typ: "int64",Name: "pageSize",tag: 2,Comment: "pageSize"},
@@ -550,7 +552,8 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 
 	//resp
 	firstWord := strings.ToLower(string(m.Name[0]))
-	m.Name = "Search" + mOrginName + "Resp"
+	//m.Name = "Search" + mOrginName + "Resp"
+	m.Name = "Get" + mOrginName + "ListResp"
 	m.Fields = []MessageField{
 		{Typ: "repeated " + mOrginName, Name: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower(), tag: 1,Comment: stringx.From(firstWord + mOrginName[1:]).ToCamelWithStartLower()},
 	}

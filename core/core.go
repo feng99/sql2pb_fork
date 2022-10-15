@@ -674,6 +674,9 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 	if "" == fieldType {
 		return fmt.Errorf("no compatible protobuf type found for `%s`. column: `%s`.`%s`", col.DataType, col.TableName, col.ColumnName)
 	}
+	if col.ColumnName == "id"{
+		col.ColumnName = "ID"
+	}
 
 	field := NewMessageField(fieldType, col.ColumnName, len(msg.Fields)+1,col.ColumnComment)
 

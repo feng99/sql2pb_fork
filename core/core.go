@@ -80,7 +80,8 @@ func typesFromColumns(s *Schema, cols []Column, ignoreTables []string) error {
 			continue
 		}
 
-		messageName := snaker.SnakeToCamel(c.TableName)
+		//删除表名的eb_前缀
+		messageName := snaker.SnakeToCamel(strings.Replace(c.TableName,"eb_","",1))
 		messageName = inflect.Singularize(messageName)
 
 		msg, ok := messageMap[messageName]

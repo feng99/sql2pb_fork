@@ -530,8 +530,9 @@ func (m Message) GenRpcSearchReqMessage(buf *bytes.Buffer) {
 	//m.Name = "Search" + mOrginName + "Req"
 	m.Name = "Get" + mOrginName + "ListReq"
 	curFields := []MessageField{
-		{Typ: "int64", Name: "page", tag: 1, Comment: "page"},
-		{Typ: "int64", Name: "pageSize", tag: 2, Comment: "pageSize"},
+		{Typ: "int64", Name: "page", tag: 1, Comment: "第几页,从1开始"},
+		//{Typ: "int64", Name: "pageSize", tag: 2, Comment: "pageSize"},
+		{Typ: "int64", Name: "page_size", tag: 2, Comment: "每页个数"},
 	}
 	var filedTag = len(curFields)
 	for _, field := range m.Fields {
@@ -680,7 +681,7 @@ func parseColumn(s *Schema, msg *Message, col Column) error {
 	}
 	if col.ColumnName == "id" {
 		//col.ColumnName = "ID"
-		col.ColumnName = "Id"
+		//col.ColumnName = "Id"
 	}
 
 	field := NewMessageField(fieldType, col.ColumnName, len(msg.Fields)+1, col.ColumnComment)
